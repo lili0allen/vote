@@ -1,0 +1,14 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Survey Details</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<h1>Survey Details</h1>
+<p th:text="'id: ' + ${survey.id}" />
+<p th:text="'title: ' + ${survey.content}" />
+<p th:text="'description: ' + ${survey.createdTime}" />
+<a href="/voting">Submit another message</a>
+</body>
+</html>
