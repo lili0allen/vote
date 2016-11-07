@@ -15,19 +15,10 @@ public class VotingController {
         return "survey-create";
     }
 
-    @PostMapping("/vote")
+    @PostMapping("/vote/initialise")
     public String surveySubmit(@ModelAttribute Survey survey){
         return "survey-details";
     }
 
-    @PostMapping("/voting")
-    public String votingSubmit(@ModelAttribute Voting voting){
-        return "result";
-    }
-
-    @PostMapping("/vote/initialise")
-    public String votingSubmit(@ModelAttribute Voting voting){
-        return "result";
-    }
 
 }
