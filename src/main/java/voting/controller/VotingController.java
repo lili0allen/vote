@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import voting.domain.*;
-import voting.infrastructure.SaveToJson;
 
 @Controller
 public class VotingController {
@@ -18,8 +17,6 @@ public class VotingController {
 
     @PostMapping("/vote/initialise")
     public String surveySubmit(@ModelAttribute Survey survey){
-        SaveToJson saveToJson = new SaveToJson();
-        saveToJson.addSurvey(survey.getId(), survey.getTitle(), survey.getDescription());
         return "survey-details";
     }
 
