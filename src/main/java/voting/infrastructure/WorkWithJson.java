@@ -1,6 +1,7 @@
 package voting.infrastructure;
 
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Date;
@@ -8,10 +9,10 @@ import java.util.Date;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
-public class SaveToJson {
+public class WorkWithJson {
     private String fileDir = "data/data.json";
 
-    public SaveToJson(){
+    public WorkWithJson(){
 
     }
 
@@ -20,7 +21,9 @@ public class SaveToJson {
             ClassLoader classLoader = getClass().getClassLoader();
             File dataFile = new File(classLoader.getResource(this.fileDir).getFile());
 
-            FileWriter file = new FileWriter(dataFile);
+            JSONArray surveys = new JSONArray();
+
+            FileWriter file = new FileWriter(dataFile, true);
             file.write(obj.toJSONString());
             file.flush();
             file.close();
@@ -39,6 +42,9 @@ public class SaveToJson {
 
         this.addRecord(survey);
     }
+
+
+
 
 
 

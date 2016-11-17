@@ -1,13 +1,11 @@
 package voting.domain;
 
-import java.util.Date;
 import java.util.UUID;
 
 public class Survey {
     private String id = UUID.randomUUID().toString();
     private String title;
     private String description;
-    private Date createdTime = new Date();
 
     public String getId() {
         return id;
@@ -29,7 +27,4 @@ public class Survey {
         this.description = description;
     }
 
-    public Date getCreatedTime(){
-        return createdTime;
-    }
 }
