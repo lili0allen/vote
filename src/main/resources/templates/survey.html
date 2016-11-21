@@ -10,5 +10,14 @@
     <p>Title: <span th:text="${survey.title}"></span></p>
     <p>Description: <span th:text="${survey.description}"></span></p>
 </div>
+
+<form action="vote/submit" method="post">
+    <ul>
+        <li th:each="ty : ${allTypes}">
+            <input type="radio" th:field="*{type}" th:value="${ty}" />
+            <label th:for="${#ids.prev('type')}" th:text="#{${'seedstarter.type.' + ty}}">Wireframe</label>
+        </li>
+    </ul>
+</form>
 </body>
 </html>

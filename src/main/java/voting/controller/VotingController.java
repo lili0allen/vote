@@ -28,6 +28,7 @@ public class VotingController {
     public String surveyEntry(@PathVariable String id, Model model){
         WorkWithJson workWithJson = new WorkWithJson();
         model.addAttribute("survey", workWithJson.getSurvey(id));
+        model.addAttribute("options", new Vote());
         return "survey";
     }
 }

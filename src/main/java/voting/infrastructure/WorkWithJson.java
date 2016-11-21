@@ -62,19 +62,15 @@ public class WorkWithJson{
     }
 
     public JSONObject getSurvey(String id){
-        JSONObject s = new JSONObject();
+        JSONObject survey = new JSONObject();
         try {
             FileReader fileReader = new FileReader(file);
             JSONObject surveys = (JSONObject) parser.parse(fileReader);
-            JSONObject survey = (JSONObject) surveys.get(id);
-            System.out.println("111111111111111111111111111111111111111111111111111111");
-            System.out.println(survey);
-            s = survey;
+            survey = (JSONObject) surveys.get(id);
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        return s;
+        return survey;
     }
 
 }
