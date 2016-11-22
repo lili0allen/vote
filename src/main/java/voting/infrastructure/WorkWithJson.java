@@ -1,13 +1,11 @@
 package voting.infrastructure;
 
 import java.io.*;
-import java.lang.reflect.Array;
 import java.util.Date;
 
-import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-import voting.domain.Survey;
+import voting.domain.Vote;
 
 
 public class WorkWithJson{
@@ -51,12 +49,17 @@ public class WorkWithJson{
 
     public void addSurvey(String id, String title, String description){
         JSONObject survey = new JSONObject();
+        JSONObject votes = new JSONObject();
+
+        for (Vote vote : Vote.values()) {
+            votes.put(vote, 0);
+        }
 
         survey.put("id", id);
         survey.put("title", title);
         survey.put("description", description);
         survey.put("createdTime", new Date().getTime());
-        survey.put("votes", new JSONArray());
+        survey.put("votes", votes);
 
         this.addRecord(survey);
     }
@@ -73,4 +76,46 @@ public class WorkWithJson{
         return survey;
     }
 
+    public void addVote(String surveyID, Vote vote){
+        int voteCount = this.getVoteCount(surveyID, vote);
+        JSONObject votes = this.getVotes(surveyID);
+        votes.remove(vote);
+        System.out.println();
+        System.out.println();
+        System.out.println();
+        System.out.println();
+        System.out.println();
+System.out.println(votes.toJSONString());
+
+        votes.put(vote, voteCount+1);
+        System.out.println(votes.toJSONString());
+        JSONObject survey = this.getSurvey(surveyID);
+        survey.put("votes", votes);
+
+        try {
+            FileReader fileReader = new FileReader(file);
+            JSONObject surveys = (JSONObject) parser.parse(fileReader);
+
+            surveys.put(surveyID, survey);
+
+            FileWriter fileWriter = new FileWriter(file);
+            fileWriter.write(surveys.toJSONString());
+            fileWriter.flush();
+            fileWriter.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public int getVoteCount(String surveyID, Vote vote){
+        JSONObject votes = this.getVotes(surveyID);
+        int voteCount = ((Long)votes.get(vote.toString())).intValue();
+        return voteCount;
+    }
+
+    public JSONObject getVotes(String surveyID){
+        JSONObject survey = this.getSurvey(surveyID);
+        JSONObject votes = (JSONObject) survey.get("votes");
+        return votes;
+    }
 }

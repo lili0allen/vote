@@ -11,13 +11,16 @@
     <p>Description: <span th:text="${survey.description}"></span></p>
 </div>
 
-<form action="vote/submit" method="post">
+<div th:text="${#dates.format(countDown,'mm')}"></div>
+
+<form action="voteSubmit" method="post">
     <ul>
-        <li th:each="ty : ${allTypes}">
-            <input type="radio" th:field="*{type}" th:value="${ty}" />
-            <label th:for="${#ids.prev('type')}" th:text="#{${'seedstarter.type.' + ty}}">Wireframe</label>
+        <li th:each="ty : ${options}">
+            <input type="radio" name="vote" th:value="${ty}" />
         </li>
     </ul>
+    <input type="hidden" name="surveyID" th:value="${survey.id}" />
+    <input type="submit" value="submit" name="submit" />
 </form>
 </body>
 </html>
