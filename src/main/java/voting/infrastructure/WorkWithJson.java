@@ -78,26 +78,17 @@ public class WorkWithJson{
 
     public void addVote(String surveyID, Vote vote){
         int voteCount = this.getVoteCount(surveyID, vote);
-        JSONObject votes = this.getVotes(surveyID);
-        votes.remove(vote);
-        System.out.println();
-        System.out.println();
-        System.out.println();
-        System.out.println();
-        System.out.println();
-System.out.println(votes.toJSONString());
 
-        votes.put(vote, voteCount+1);
-        System.out.println(votes.toJSONString());
+        JSONObject votes = this.getVotes(surveyID);
+        votes.put(vote.toString(), voteCount+1);
+
         JSONObject survey = this.getSurvey(surveyID);
         survey.put("votes", votes);
 
         try {
             FileReader fileReader = new FileReader(file);
             JSONObject surveys = (JSONObject) parser.parse(fileReader);
-
             surveys.put(surveyID, survey);
-
             FileWriter fileWriter = new FileWriter(file);
             fileWriter.write(surveys.toJSONString());
             fileWriter.flush();
