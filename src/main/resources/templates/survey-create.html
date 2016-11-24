@@ -6,7 +6,7 @@
 </head>
 <body>
 <h1>Create your survey</h1>
-<form action="#" th:action="@{/vote/initialise}" th:object="${survey}" method="post">
+<form action="#" th:action="@{/survey/initialise}" th:object="${survey}" method="post">
     <p>Title: <input type="text" th:field="*{title}" /></p>
     <p>Description: <textarea th:field="*{description}"></textarea></p>
     <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>

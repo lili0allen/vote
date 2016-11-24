@@ -1,14 +1,16 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Survey Details</title>
+    <title>Survey Result</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
-<h1>Survey Details</h1>
+<h1>Survey Result</h1>
 <p th:text="'id: ' + ${survey.id}" />
 <p th:text="'title: ' + ${survey.title}" />
 <p th:text="'description: ' + ${survey.description}" />
-<P><a th:href="${survey.id}">Click here</a> to vote.</P>
+<p th:text="'POOR: ' + ${votes.POOR}" />
+<p th:text="'FAIR: ' + ${votes.FAIR}" />
+<p th:text="'GOOD: ' + ${votes.GOOD}" />
 </body>
 </html>

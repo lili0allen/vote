@@ -1,26 +1,25 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title>Survey</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-</head>
-<body>
-<h1>Survey</h1>
-<div>
-    <p>Title: <span th:text="${survey.title}"></span></p>
-    <p>Description: <span th:text="${survey.description}"></span></p>
-</div>
+    <head th:replace="fragments/header :: header"> </head>
+    <body>
+        <h1>Survey</h1>
+        <div>
+            <p>Title: <span th:text="${survey.title}"></span></p>
+            <p>Description: <span th:text="${survey.description}"></span></p>
+        </div>
 
-<div th:text="${#dates.format(countDown,'mm')}"></div>
+        <div th:text="${#dates.format(countDown,'mm')}"></div>
 
-<form action="voteSubmit" method="post">
-    <ul>
-        <li th:each="ty : ${options}">
-            <input type="radio" name="vote" th:value="${ty}" />
-        </li>
-    </ul>
-    <input type="hidden" name="surveyID" th:value="${survey.id}" />
-    <input type="submit" value="submit" name="submit" />
-</form>
-</body>
+        <form action="voteSubmit" method="post">
+            <ul>
+                <li th:each="ty : ${options}">
+                    <input type="radio" name="vote" th:id="${ty}" th:value="${ty}" />
+                    <label th:for="${ty}" th:text="${ty}"></label>
+                </li>
+            </ul>
+            <input type="hidden" name="surveyID" th:value="${survey.id}" />
+            <input type="submit" value="submit" name="submit" />
+        </form>
+        <footer th:replace="fragments/footer :: footer"> </footer>
+    </body>
 </html>

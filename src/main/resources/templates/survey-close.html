@@ -1,0 +1,20 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Survey</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<h1>Survey is closed</h1>
+<div>
+    <p>
+        Sorry, the survey is closed.
+    </p>
+    <p>
+        You can <a th:href="@{result/}+${survey.id}">here</a> to view the survey result.
+    </p>
+</div>
+<div th:text="${countDown}"></div>
+
+</body>
+</html>

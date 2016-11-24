@@ -15,20 +15,20 @@ import java.util.Date;
 
 @Controller
 public class VotingController {
-    @GetMapping("/vote")
+    @GetMapping("/survey")
     public String surveyForm(Model model){
         model.addAttribute("survey", new Survey());
         return "survey-create";
     }
 
-    @PostMapping("/vote/initialise")
+    @PostMapping("/survey/initialise")
     public String surveySubmit(@ModelAttribute Survey survey){
         WorkWithJson workWithJson = new WorkWithJson();
         workWithJson.addSurvey(survey.getId(), survey.getTitle(), survey.getDescription());
         return "survey-details";
     }
 
-    @GetMapping("/vote/{id}")
+    @GetMapping("/survey/{id}")
     public String surveyEntry(@PathVariable String id, Model model){
         WorkWithJson workWithJson = new WorkWithJson();
         model.addAttribute("survey", workWithJson.getSurvey(id));
@@ -36,11 +36,24 @@ public class VotingController {
         long currentTime = new Date().getTime();
         long createdTime = (long) workWithJson.getSurvey(id).get("createdTime");
         long countDown = currentTime - createdTime;
-        model.addAttribute("countDown",countDown);
-        return "survey";
+        if(((int) countDown) < 10000*60*1000){
+            model.addAttribute("countDown",countDown);
+            return "survey";
+        }else{
+            return "survey-close";
+        }
+
     }
 
-    @PostMapping("/vote/voteSubmit")
+    @GetMapping("/survey/result/{id}")
+    public String surveyResult(@PathVariable String id, Model model){
+        WorkWithJson workWithJson = new WorkWithJson();
+        model.addAttribute("survey", workWithJson.getSurvey(id));
+        model.addAttribute("votes", workWithJson.getVotes(id));
+        return "survey-result";
+    }
+
+    @PostMapping("/survey/voteSubmit")
     public String voteSubmit(WebRequest request){
         WorkWithJson workWithJson = new WorkWithJson();
         workWithJson.addVote(request.getParameter("surveyID"), Vote.valueOf(request.getParameter("vote")) );
