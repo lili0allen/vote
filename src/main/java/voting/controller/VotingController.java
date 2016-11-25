@@ -36,7 +36,7 @@ public class VotingController {
         long currentTime = new Date().getTime();
         long createdTime = (long) workWithJson.getSurvey(id).get("createdTime");
         long countDown = currentTime - createdTime;
-        if(((int) countDown) < 10000*60*1000){
+        if(((int) countDown) < 10*60*1000){
             model.addAttribute("countDown",countDown);
             return "survey";
         }else{

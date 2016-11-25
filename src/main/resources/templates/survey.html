@@ -1,25 +1,56 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
-    <head th:replace="fragments/header :: header"> </head>
-    <body>
-        <h1>Survey</h1>
-        <div>
-            <p>Title: <span th:text="${survey.title}"></span></p>
-            <p>Description: <span th:text="${survey.description}"></span></p>
+<head th:replace="fragments/header :: header"> </head>
+<body>
+
+
+<div th:text="${#dates.format(countDown,'mm')}"></div>
+
+
+
+<div class="container">
+    <div class="col-md-3">
+    </div>
+    <form action="voteSubmit" method="post">
+        <div class="col-md-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        <span th:text="${survey.title}"></span>
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <p th:text="${survey.description}"></p>
+                        </div>
+                        <div class="col-md-4" th:each="ty : ${options}">
+                            <div class="well well-sm">
+                                <input type="radio" name="vote" th:id="${ty}" th:value="${ty}" />
+                                <label th:for="${ty}" th:text="${ty}"></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-footer">
+                    <div class="row">
+                        <div class="col-md-3">
+                        </div>
+                        <div class="col-md-6">
+                            <input type="hidden" name="surveyID" th:value="${survey.id}" />
+                            <input type="submit" class="btn btn-success btn-sm btn-block" value="Submit" name="submit" />
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <div th:text="${#dates.format(countDown,'mm')}"></div>
+    </form>
+</div>
 
-        <form action="voteSubmit" method="post">
-            <ul>
-                <li th:each="ty : ${options}">
-                    <input type="radio" name="vote" th:id="${ty}" th:value="${ty}" />
-                    <label th:for="${ty}" th:text="${ty}"></label>
-                </li>
-            </ul>
-            <input type="hidden" name="surveyID" th:value="${survey.id}" />
-            <input type="submit" value="submit" name="submit" />
-        </form>
-        <footer th:replace="fragments/footer :: footer"> </footer>
-    </body>
+
+
+
+<footer th:replace="fragments/footer :: footer"> </footer>
+</body>
 </html>

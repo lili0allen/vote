@@ -1,14 +1,56 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title>Survey Details</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-</head>
+<head th:replace="fragments/header :: header"> </head>
 <body>
-<h1>Survey Details</h1>
-<p th:text="'id: ' + ${survey.id}" />
-<p th:text="'title: ' + ${survey.title}" />
-<p th:text="'description: ' + ${survey.description}" />
-<P><a th:href="${survey.id}">Click here</a> to vote.</P>
+
+<div class="container">
+    <div class="col-md-3">
+    </div>
+    <div class="col-md-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    <span>Survey Details</span>
+                </h3>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <p>
+                            <strong>Title : </strong><span th:text="${survey.title}"></span>
+                        </p>
+                        <p>
+                            <strong>Description : </strong><span th:text="${survey.description}"></span>
+                        </p>
+                        <div class="input-group">
+                            <input id="survey-link" class="form-control"  th:value="@{${#httpServletRequest.getHeader('Referer')}+${'/'+survey.id}}" />
+                            <span class="input-group-btn">
+                                <button class="btn" data-clipboard-target="#survey-link">
+                                    copy
+                                </button>
+                            </span>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="panel-footer">
+                <div class="row">
+                    <div class="col-md-3">
+                    </div>
+                    <div class="col-md-6">
+                        <a th:href="${survey.id}">
+                            <button type="button" class="btn btn-primary btn-sm btn-block">
+                                Vote</button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<footer th:replace="fragments/footer :: footer"> </footer>
 </body>
 </html>

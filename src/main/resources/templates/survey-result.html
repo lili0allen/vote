@@ -1,16 +1,65 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title>Survey Result</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-</head>
+<head th:replace="fragments/header :: header"> </head>
 <body>
-<h1>Survey Result</h1>
-<p th:text="'id: ' + ${survey.id}" />
-<p th:text="'title: ' + ${survey.title}" />
-<p th:text="'description: ' + ${survey.description}" />
-<p th:text="'POOR: ' + ${votes.POOR}" />
-<p th:text="'FAIR: ' + ${votes.FAIR}" />
-<p th:text="'GOOD: ' + ${votes.GOOD}" />
+
+<div class="container">
+    <div class="col-md-3">
+    </div>
+    <div class="col-md-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    <span>Survey Results</span>
+                </h3>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <p>
+                            <strong>Title : </strong><span th:text="${survey.title}"></span>
+                        </p>
+                        <p>
+                            <strong>Description : </strong><span th:text="${survey.description}"></span>
+                        </p>
+                        <div class="progress">
+                            <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar"
+                                 aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width:40%">
+                                40% Complete (success)
+                            </div>
+                        </div>
+                        <div class="progress">
+                            <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar"
+                                 aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width:40%">
+                                40% Complete (success)
+                            </div>
+                        </div>
+                        <p th:text="${votes.POOR}+${votes.FAIR}+${votes.GOOD}" />
+                        <p th:text="'POOR: ' + ${votes.POOR}" />
+                        <p th:text="'FAIR: ' + ${votes.FAIR}" />
+                        <p th:text="'GOOD: ' + ${votes.GOOD}" />
+                    </div>
+                </div>
+            </div>
+            <div class="panel-footer">
+                <div class="row">
+                    <div class="input-group">
+                        <input id="survey-link" class="form-control"  th:value="@{${#httpServletRequest.requestURL}}" />
+                        <span class="input-group-btn">
+                            <button class="btn" data-clipboard-target="#survey-link">
+                                copy
+                            </button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+<footer th:replace="fragments/footer :: footer"> </footer>
 </body>
 </html>
