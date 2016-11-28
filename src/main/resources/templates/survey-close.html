@@ -3,43 +3,44 @@
 <head th:replace="fragments/header :: header"> </head>
 <body>
 
-<div class="container">
-    <div class="col-md-3">
-    </div>
-    <div class="col-md-6">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h3 class="panel-title">
-                    <span>Survey is closed</span>
-                </h3>
-            </div>
-            <div class="panel-body">
-                <div class="row">
-                    <div class="col-md-12">
-                        <p>
-                            Sorry, the survey is expired.
-                        </p>
-                        <p>
-                            You can click the button below to view the survey result.
-                        </p>
+<div class="container container-table">
+    <div class="row vertical-center-row">
+        <div class="col-md-3">
+        </div>
+        <div class="col-md-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        <span>Survey is closed</span>
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <p>
+                                Sorry, the survey is expired.
+                            </p>
+                            <p>
+                                You can click the button below to view the survey result.
+                            </p>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="panel-footer">
-                <div class="row">
-                    <div class="col-md-3">
-                    </div>
-                    <div class="col-md-6">
-                        <a th:href="@{result/}+${survey.id}">
-                            <button type="button" class="btn btn-primary btn-sm btn-block">
-                                View Result</button>
-                        </a>
+                <div class="panel-footer">
+                    <div class="row">
+                        <div class="col-md-3">
+                        </div>
+                        <div class="col-md-6">
+                            <a th:href="@{result/}+${survey.id}">
+                                <button type="button" class="btn btn-primary btn-sm btn-block">
+                                    View Result</button>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
 </div>
 
 <footer th:replace="fragments/footer :: footer"> </footer>

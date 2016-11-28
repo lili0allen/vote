@@ -27,6 +27,7 @@ $(document).ready(function(){
             .tooltip('fixTitle');
       });
 
+    //countdown
     var $clock = $('.countdown').countdown(parseInt($('.countdown').attr('data'))+10*60*1000)
               .on('update.countdown', function(event) {
                 var format = '%H:%M:%S';
@@ -37,4 +38,15 @@ $(document).ready(function(){
                 $('[name="submit"]').prop('disabled', true);
               });
 
+
 });
+function validateForm(){
+        var surveyID = $('[name="surveyID"]').val();
+        if($.cookie(surveyID)){
+            alert("You have already submitted your vote.");
+            return false;
+        }else{
+            $.cookie(surveyID, 1, { expires : 7 });
+            return true;
+        }
+    }
