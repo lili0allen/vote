@@ -36,8 +36,7 @@ public class VotingController {
         long currentTime = new Date().getTime();
         long createdTime = (long) workWithJson.getSurvey(id).get("createdTime");
         long countDown = currentTime - createdTime;
-        if(((int) countDown) < 10*60*1000){
-            model.addAttribute("countDown",countDown);
+        if(((int) countDown) < 1000*60*1000){
             return "survey";
         }else{
             return "survey-close";
@@ -49,7 +48,11 @@ public class VotingController {
     public String surveyResult(@PathVariable String id, Model model){
         WorkWithJson workWithJson = new WorkWithJson();
         model.addAttribute("survey", workWithJson.getSurvey(id));
-        model.addAttribute("votes", workWithJson.getVotes(id));
+        //model.addAttribute("votes", workWithJson.getVotes(id));
+        model.addAttribute("poorResult", workWithJson.getVotePercentage(id, Vote.valueOf("POOR"), 2));
+        model.addAttribute("fairResult", workWithJson.getVotePercentage(id, Vote.valueOf("FAIR"), 2));
+        model.addAttribute("goodResult", workWithJson.getVotePercentage(id, Vote.valueOf("GOOD"), 2));
+
         return "survey-result";
     }
 

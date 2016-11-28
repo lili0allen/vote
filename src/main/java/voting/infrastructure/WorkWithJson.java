@@ -2,6 +2,8 @@ package voting.infrastructure;
 
 import java.io.*;
 import java.util.Date;
+import java.util.Iterator;
+import java.text.NumberFormat;
 
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -103,6 +105,26 @@ public class WorkWithJson{
         int voteCount = ((Long)votes.get(vote.toString())).intValue();
         return voteCount;
     }
+
+    public int getTotalVoteCount(String surveyID){
+        JSONObject votes = this.getVotes(surveyID);
+        Iterator i = votes.keySet().iterator();
+        int totalVoteCount = 0;
+        while (i.hasNext()){
+            String key = (String) i.next();
+            totalVoteCount += ((Long)votes.get(key)).intValue();
+        }
+        return totalVoteCount;
+    }
+
+    public String getVotePercentage(String surveyID, Vote vote, int decimalDigits){
+        double division = (double)this.getVoteCount(surveyID,vote)/(double)this.getTotalVoteCount(surveyID);
+        NumberFormat defaultFormat = NumberFormat.getPercentInstance();
+        defaultFormat.setMinimumFractionDigits(decimalDigits);
+        String votePercentage = defaultFormat.format(division);
+        return votePercentage;
+    }
+
 
     public JSONObject getVotes(String surveyID){
         JSONObject survey = this.getSurvey(surveyID);

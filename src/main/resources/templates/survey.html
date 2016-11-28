@@ -3,11 +3,6 @@
 <head th:replace="fragments/header :: header"> </head>
 <body>
 
-
-<div th:text="${#dates.format(countDown,'mm')}"></div>
-
-
-
 <div class="container">
     <div class="col-md-3">
     </div>
@@ -16,7 +11,14 @@
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h3 class="panel-title">
-                        <span th:text="${survey.title}"></span>
+                        <div class="row">
+                            <div class="col-md-8">
+                                <span th:text="${survey.title}"></span>
+                            </div>
+                            <div class="col-md-4">
+                                Expires in <span class="text-right countdown" th:data="${survey.createdTime}"></span>
+                            </div>
+                        </div>
                     </h3>
                 </div>
                 <div class="panel-body">

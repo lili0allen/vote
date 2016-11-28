@@ -1,6 +1,7 @@
 package voting.infrastructure;
 
 import org.junit.Before;
+import org.junit.Test;
 import voting.domain.Vote;
 
 import static org.junit.Assert.assertEquals;
@@ -15,10 +16,20 @@ public class WorkWithJsonTest {
         this.testInstance = new WorkWithJson();
     }
 
-    @org.junit.Test
+    @Test
     public void getVoteCount() throws Exception {
         assertEquals(2, this.testInstance.getVoteCount(surveyId, Vote.GOOD));
-        assertEquals(0, this.testInstance.getVoteCount(surveyId, Vote.POOR));
+        assertEquals(2, this.testInstance.getVoteCount(surveyId, Vote.POOR));
+    }
+
+    @Test
+    public void getTotalVoteCount() throws Exception {
+        assertEquals(4, this.testInstance.getTotalVoteCount(surveyId));
+    }
+
+    @Test
+    public void getVotePercentage() throws Exception {
+        assertEquals("50.00%", this.testInstance.getVotePercentage(surveyId, Vote.GOOD, 2));
     }
 
 }
