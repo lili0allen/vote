@@ -1,9 +1,14 @@
 
 $(document).ready(function(){
-    // Initialize the tooltip.
-      $('.btn.copy').tooltip();
+    copyTooltip();
+    surveyCountdown();
 
-      $('.btn.copy').bind('click', function() {
+});
+
+function copyTooltip(){
+    $('.btn.copy').tooltip();
+
+    $('.btn.copy').bind('click', function() {
         var input = document.querySelector('#survey-link');
         input.setSelectionRange(0, input.value.length + 1);
         try {
@@ -16,19 +21,20 @@ $(document).ready(function(){
         } catch (err) {
           $('.btn.copy').trigger('copied', ['Copy with Ctrl-c']);
         }
-      });
+    });
 
-      // Handler for updating the tooltip message.
-      $('.btn.copy').bind('copied', function(event, message) {
+    // Handler for updating the tooltip message.
+    $('.btn.copy').bind('copied', function(event, message) {
         $(this).attr('title', message)
             .tooltip('fixTitle')
             .tooltip('show')
             .attr('title', "Copy to Clipboard")
             .tooltip('fixTitle');
-      });
+    });
+}
 
-    //countdown
-    var $clock = $('.countdown').countdown(parseInt($('.countdown').attr('data'))+10*60*1000)
+function surveyCountdown(){
+    $('.countdown').countdown(parseInt($('.countdown').attr('data'))+10*60*1000)
               .on('update.countdown', function(event) {
                 var format = '%H:%M:%S';
                 $(this).html(event.strftime(format));
@@ -37,9 +43,8 @@ $(document).ready(function(){
                 $(this).parent().html('Survey Expired!');
                 $('[name="submit"]').prop('disabled', true);
               });
+}
 
-
-});
 function validateForm(){
         var surveyID = $('[name="surveyID"]').val();
         if($.cookie(surveyID)){
@@ -49,4 +54,4 @@ function validateForm(){
             $.cookie(surveyID, 1, { expires : 7 });
             return true;
         }
-    }
+}
