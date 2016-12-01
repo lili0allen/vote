@@ -13,7 +13,7 @@ import voting.domain.SurveyService;
 
 @Controller
 public class SurveyTemplateController {
-    @GetMapping("/survey")
+    @GetMapping("/")
     public String surveyForm(Model model){
         model.addAttribute("survey", new SurveyForm());
         return "survey-create";
