@@ -2,6 +2,7 @@ package voting.infrastructure;
 
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 import voting.domain.Survey;
 import voting.domain.SurveyRepository;
@@ -21,9 +22,16 @@ public class JsonSurveyRepository implements SurveyRepository {
     private File file;
     private JSONParser parser = new JSONParser();
 
+    @Value("${spring.jsonUrl}")
+    private String jsonUrl;
+
     public JsonSurveyRepository() {
+
+    }
+
+    private void checkFileExist(){
         this.classLoader = getClass().getClassLoader();
-        this.file = new File(classLoader.getResource(FILE_DIR).getFile());
+        this.file = new File(classLoader.getResource(jsonUrl).getFile());
         try {
             FileReader fileReader = new FileReader(file);
             BufferedReader br = new BufferedReader(fileReader);
@@ -41,6 +49,7 @@ public class JsonSurveyRepository implements SurveyRepository {
 
     @Override
     public void saveSurvey(Survey survey) {
+        this.checkFileExist();
         try {
             FileReader fileReader = new FileReader(file);
 
@@ -60,6 +69,7 @@ public class JsonSurveyRepository implements SurveyRepository {
 
     @Override
     public Survey getSurvey(String surveyId) {
+        this.checkFileExist();
         try {
             FileReader fileReader = new FileReader(file);
             JSONObject surveys = (JSONObject) parser.parse(fileReader);
