@@ -1,15 +1,51 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title>Create your survey</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-</head>
+<head th:replace="fragments/header :: header"> </head>
 <body>
-<h1>Create your survey</h1>
-<form action="#" th:action="@{/vote/initialise}" th:object="${survey}" method="post">
-    <p>Title: <input type="text" th:field="*{title}" /></p>
-    <p>Description: <textarea th:field="*{description}"></textarea></p>
-    <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
-</form>
+
+<div class="container container-table">
+    <div class="row vertical-center-row">
+        <div class="col-md-3">
+        </div>
+        <form action="#" th:action="@{/survey}" th:object="${survey}" method="post">
+            <div class="col-md-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">
+                            <span>Create new survey</span>
+                        </h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>Title</label>
+                                    <input type="text" class="form-control" th:field="*{title}" required="required" />
+                                </div>
+                                <div class="form-group">
+                                    <label>Description</label>
+                                    <textarea class="form-control" rows="3" th:field="*{description}"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-footer">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <input type="submit" class="btn btn-success btn-sm btn-block" value="Submit" name="submit" />
+                            </div>
+                            <div class="col-md-6">
+                                <input type="reset" class="btn btn-primary btn-sm btn-block" value="Reset" name="reset" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+<footer th:replace="fragments/footer :: footer"> </footer>
 </body>
 </html>
