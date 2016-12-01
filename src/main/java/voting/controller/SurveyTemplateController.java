@@ -1,7 +1,6 @@
 package voting.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.Banner;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,11 +22,9 @@ public class SurveyTemplateController {
     @PostMapping("/survey")
     public String surveySubmit(@ModelAttribute(value = "survey") SurveyForm survey, Model model){
         String surveyId = surveyService.createSurveyTemplate(survey.getTitle(), survey.getDescription());
-
         Survey surveyCreated = surveyService.getSurveyTemplate(surveyId);
         SurveyTemplateUiModel uiModel = toSurveyTemplateUiModel(surveyCreated);
         model.addAttribute("surveyUiModel", uiModel);
-
         return "survey-details";
     }
 
@@ -37,7 +34,6 @@ public class SurveyTemplateController {
         surveyTemplateUiModel.setTitle(survey.title());
         surveyTemplateUiModel.setDescription(survey.description());
         surveyTemplateUiModel.setCreatedTime(survey.createdTime());
-
         return surveyTemplateUiModel;
     }
 
