@@ -17,7 +17,7 @@ import java.util.Map;
 
 @Repository
 public class JsonSurveyRepository implements SurveyRepository {
-    private static final String FILE_DIR = "data/data.json";
+
     private ClassLoader classLoader;
     private File file;
     private JSONParser parser = new JSONParser();
@@ -31,20 +31,24 @@ public class JsonSurveyRepository implements SurveyRepository {
 
     private void checkFileExist(){
         this.classLoader = getClass().getClassLoader();
-        this.file = new File(classLoader.getResource(jsonUrl).getFile());
-        try {
-            FileReader fileReader = new FileReader(file);
-            BufferedReader br = new BufferedReader(fileReader);
-            if(br.readLine() == null){
-                JSONObject surveys = new JSONObject();
-                FileWriter fileWriter = new FileWriter(file);
-                fileWriter.write(surveys.toJSONString());
-                fileWriter.flush();
-                fileWriter.close();
+        this.file = new File(jsonUrl);
+        if(!this.file.exists()){
+            try {
+                file.createNewFile();
+                FileReader fileReader = new FileReader(file);
+                BufferedReader br = new BufferedReader(fileReader);
+                if(br.readLine() == null){
+                    JSONObject surveys = new JSONObject();
+                    FileWriter fileWriter = new FileWriter(file);
+                    fileWriter.write(surveys.toJSONString());
+                    fileWriter.flush();
+                    fileWriter.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-        } catch (Exception e) {
-            e.printStackTrace();
         }
+
     }
 
     @Override
