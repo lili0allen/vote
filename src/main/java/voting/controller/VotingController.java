@@ -44,7 +44,7 @@ public class VotingController {
     public String surveyResult(@PathVariable String id, Model model){
         Survey survey = surveyService.getSurveyTemplate(id);
 
-        double totalVoteCount = survey.totalVoteCount();
+        int totalVoteCount = survey.totalVoteCount();
         double poor = survey.getVote(Vote.POOR);
         double fair = survey.getVote(Vote.FAIR);
         double good = survey.getVote(Vote.GOOD);
