@@ -44,10 +44,10 @@ public class VotingController {
     public String surveyResult(@PathVariable String id, Model model){
         Survey survey = surveyService.getSurveyTemplate(id);
 
-        int totalVoteCount = survey.totalVoteCount();
-        int poor = survey.getVote(Vote.POOR);
-        int fair = survey.getVote(Vote.FAIR);
-        int good = survey.getVote(Vote.GOOD);
+        double totalVoteCount = survey.totalVoteCount();
+        double poor = survey.getVote(Vote.POOR);
+        double fair = survey.getVote(Vote.FAIR);
+        double good = survey.getVote(Vote.GOOD);
         double poorPercentage = 0;
         double fairPercentage = 0;
         double goodPercentage = 0;
