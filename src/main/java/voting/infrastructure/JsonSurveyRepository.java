@@ -18,7 +18,6 @@ import java.util.Map;
 @Repository
 public class JsonSurveyRepository implements SurveyRepository {
 
-    private ClassLoader classLoader;
     private File file;
     private JSONParser parser = new JSONParser();
 
@@ -30,7 +29,6 @@ public class JsonSurveyRepository implements SurveyRepository {
     }
 
     private void checkFileExist(){
-        this.classLoader = getClass().getClassLoader();
         this.file = new File(jsonUrl);
         if(!this.file.exists()){
             try {
