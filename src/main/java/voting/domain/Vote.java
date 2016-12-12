@@ -1,3 +1,3 @@
 package voting.domain;
 
-public enum Vote {GOOD, FAIR, POOR}
+public enum Vote {POOR, FAIR, GOOD}

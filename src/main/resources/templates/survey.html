@@ -27,12 +27,13 @@
                             <div class="col-md-12">
                                 <p th:text="${survey.description}"></p>
                             </div>
-                            <div class="col-md-4" th:each="ty : ${options}">
-                                <div class="well well-sm">
-                                    <input type="radio" required="required" name="vote" th:id="${ty}" th:value="${ty}" />
-                                    <label th:for="${ty}" th:text="${ty}"></label>
-                                </div>
+                            <div class="btn-group col-md-12" data-toggle="buttons">
+                                <label class="col-md-4 btn btn-primary btn-lg" th:each="ty : ${options}">
+                                        <input type="radio" required="required" name="vote" th:id="${ty}" th:value="${ty}" autocomplete="off" />
+                                        <span th:for="${ty}" th:text="${ty}"></span>
+                                </label>
                             </div>
+
                         </div>
                     </div>
                     <div class="panel-footer">
@@ -41,7 +42,7 @@
                             </div>
                             <div class="col-md-6">
                                 <input type="hidden" name="surveyID" th:value="${survey.id}" />
-                                <input type="submit" class="btn btn-success btn-sm btn-block" value="Submit" name="submit" />
+                                <input type="submit" class="btn btn-success btn-lg btn-block" value="Submit" name="submit" />
                             </div>
                         </div>
                     </div>
