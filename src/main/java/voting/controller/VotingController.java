@@ -1,6 +1,7 @@
 package voting.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,17 +21,19 @@ import java.util.List;
 @Controller
 public class VotingController {
 
+    @Value("${spring.expireTime}")
+    private int expireTime;
+
     @GetMapping("/survey/{id}")
     public String getSurveyEntryForm(@PathVariable String id, Model model){
         Survey survey = surveyService.getSurveyTemplate(id);
         List<String> voteOptions = voteOptionsCapitalised();
 
         SurveyTemplateUiModel surveyTemplateUiModel = toSurveyTemplateUiModel(survey);
-
+        int TEN_MINUTES_IN_MILLISECONDS = expireTime * 60 * 1000;
         model.addAttribute("survey", surveyTemplateUiModel);
         model.addAttribute("options", voteOptions);
-
-        int TEN_MINUTES_IN_MILLISECONDS = 10 * 60 * 1000;
+        model.addAttribute("expire", TEN_MINUTES_IN_MILLISECONDS);
 
         boolean expired = survey.isExpired(TEN_MINUTES_IN_MILLISECONDS);
         if (expired) {
@@ -62,9 +65,10 @@ public class VotingController {
         defaultFormat.setMinimumFractionDigits(2);
 
         SurveyTemplateUiModel surveyTemplateUiModel = toSurveyTemplateUiModel(survey);
-
+        int TEN_MINUTES_IN_MILLISECONDS = expireTime * 60 * 1000;
         model.addAttribute("survey", surveyTemplateUiModel);
         model.addAttribute("total", totalVoteCount);
+        model.addAttribute("expire", TEN_MINUTES_IN_MILLISECONDS);
 
         model.addAttribute("poorResult", defaultFormat.format(poorPercentage));
         model.addAttribute("fairResult", defaultFormat.format(fairPercentage));

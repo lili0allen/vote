@@ -16,7 +16,7 @@
                                 <span>Survey Results</span>
                             </div>
                             <div class="col-md-4">
-                                Expires in <span class="text-right countdown" th:data="${survey.createdTime}"></span>
+                                Expires in <span class="text-right countdown" th:attr="data-expire=${expire},data-create=${survey.createdTime}"></span>
                             </div>
                         </div>
                     </h3>
@@ -41,7 +41,7 @@
                             </div>
 
                             <div class="progress">
-                                <div class="progress-bar progress-bar-warning progress-bar-striped" role="progressbar"
+                                <div class="progress-bar progress-bar-info progress-bar-striped" role="progressbar"
                                      aria-valuenow="" aria-valuemin="0" aria-valuemax="100" th:style="'width:'+${fairResult}" th:text="${fairResult}+' FAIR'">
                                 </div>
                             </div>

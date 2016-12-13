@@ -2,7 +2,7 @@
 $(document).ready(function(){
     copyTooltip();
     surveyCountdown();
-
+supportRequired();
 });
 
 function copyTooltip(){
@@ -34,7 +34,7 @@ function copyTooltip(){
 }
 
 function surveyCountdown(){
-    $('.countdown').countdown(parseInt($('.countdown').attr('data'))+10*60*1000)
+    $('.countdown').countdown(parseInt($('.countdown').attr('data-create'))+parseInt($('.countdown').attr('data-expire')))
               .on('update.countdown', function(event) {
                 var format = '%H:%M:%S';
                 $(this).html(event.strftime(format));
@@ -54,4 +54,23 @@ function validateForm(){
             $.cookie(surveyID, 1, { expires : 7 });
             return true;
         }
+}
+
+function supportRequired(){
+    $("form").submit(function(e) {
+
+        var ref = $(this).find("[required]");
+
+        $(ref).each(function(){
+            if ( $(this).val() == '' )
+            {
+                alert("Required field should not be blank.");
+
+                $(this).focus();
+
+                e.preventDefault();
+                return false;
+            }
+        });  return true;
+    });
 }
