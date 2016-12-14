@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 import voting.domain.Survey;
 import voting.domain.SurveyRepository;
+import voting.domain.SurveyType;
 import voting.domain.Vote;
 
 import java.io.BufferedReader;
@@ -99,6 +100,7 @@ public class JsonSurveyRepository implements SurveyRepository {
                 (String) jsonObject.get("id"),
                 (String) jsonObject.get("title"),
                 (String) jsonObject.get("description"),
+                (SurveyType) jsonObject.get("surveyType"),
                 (Long) jsonObject.get("createdTime"),
                 votesMap);
     }
@@ -114,6 +116,7 @@ public class JsonSurveyRepository implements SurveyRepository {
         survey.put("id", surveyDomain.id());
         survey.put("title", surveyDomain.title());
         survey.put("description", surveyDomain.description());
+        survey.put("surveyType", surveyDomain.surveyType());
         survey.put("createdTime", surveyDomain.createdTime());
         survey.put("votes", votes);
         return survey;

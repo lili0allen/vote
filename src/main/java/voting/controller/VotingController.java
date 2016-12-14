@@ -99,6 +99,7 @@ public class VotingController {
         surveyTemplateUiModel.setId(survey.id());
         surveyTemplateUiModel.setTitle(survey.title());
         surveyTemplateUiModel.setDescription(survey.description());
+        surveyTemplateUiModel.setSurveyType(survey.surveyType());
         surveyTemplateUiModel.setCreatedTime(survey.createdTime());
 
         return surveyTemplateUiModel;

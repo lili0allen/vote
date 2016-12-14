@@ -1,8 +1,11 @@
 package voting.controller.form;
 
+import voting.domain.SurveyType;
+
 public class SurveyForm {
     private String title;
     private String description;
+    private SurveyType surveyType;
 
     public String getTitle() {
         return title;
@@ -20,4 +23,11 @@ public class SurveyForm {
         this.description = description;
     }
 
+    public SurveyType getSurveyType() {
+        return surveyType;
+    }
+
+    public void setSurveyType(SurveyType surveyType) {
+        this.surveyType = surveyType;
+    }
 }

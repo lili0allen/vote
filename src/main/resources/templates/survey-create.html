@@ -26,16 +26,19 @@
                                     <label>Description</label>
                                     <textarea class="form-control" rows="3" th:field="*{description}"></textarea>
                                 </div>
+                                <div class="form-group">
+                                    <label>Type</label>
+                                    <select class="form-control" th:field="*{surveyType}">
+                                        <option th:each="type : ${T(voting.domain.SurveyType).values()}" th:value="${type}" th:text="${type}"></option>
+                                    </select>
+                                </div>
                             </div>
                         </div>
                     </div>
                     <div class="panel-footer">
                         <div class="row">
-                            <div class="col-md-6">
-                                <input type="submit" class="btn btn-success btn-lg btn-block" value="Submit" name="submit" />
-                            </div>
-                            <div class="col-md-6">
-                                <input type="reset" class="btn btn-primary btn-lg btn-block" value="Reset" name="reset" />
+                            <div class="col-md-12">
+                                <input type="submit" class="btn btn-success btn-lg btn-block" value="Create Survey" name="submit" />
                             </div>
                         </div>
                     </div>

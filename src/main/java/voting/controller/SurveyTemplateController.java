@@ -10,6 +10,7 @@ import voting.controller.form.SurveyForm;
 import voting.controller.model.SurveyTemplateUiModel;
 import voting.domain.Survey;
 import voting.domain.SurveyService;
+import voting.domain.SurveyType;
 
 @Controller
 public class SurveyTemplateController {
@@ -21,7 +22,7 @@ public class SurveyTemplateController {
 
     @PostMapping("/survey")
     public String surveySubmit(@ModelAttribute(value = "survey") SurveyForm survey, Model model){
-        String surveyId = surveyService.createSurveyTemplate(survey.getTitle(), survey.getDescription());
+        String surveyId = surveyService.createSurveyTemplate(survey.getTitle(), survey.getDescription(), survey.getSurveyType());
         Survey surveyCreated = surveyService.getSurveyTemplate(surveyId);
         SurveyTemplateUiModel uiModel = toSurveyTemplateUiModel(surveyCreated);
         model.addAttribute("surveyUiModel", uiModel);
@@ -33,6 +34,7 @@ public class SurveyTemplateController {
         surveyTemplateUiModel.setId(survey.id());
         surveyTemplateUiModel.setTitle(survey.title());
         surveyTemplateUiModel.setDescription(survey.description());
+        surveyTemplateUiModel.setSurveyType(survey.surveyType());
         surveyTemplateUiModel.setCreatedTime(survey.createdTime());
         return surveyTemplateUiModel;
     }

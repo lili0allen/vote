@@ -9,13 +9,15 @@ public class Survey {
     private String id;
     private String title;
     private String description;
+    private SurveyType surveyType;
     private long createdTime;
     private Map<Vote, Integer> votes;
 
-    public Survey(String title, String description) {
+    public Survey(String title, String description, SurveyType surveyType) {
         this.id = UUID.randomUUID().toString();
         this.title = title;
         this.description = description;
+        this.surveyType = surveyType;
         this.createdTime = new Date().getTime();
 
         this.votes = new HashMap<>();
@@ -26,10 +28,11 @@ public class Survey {
 
     // constructor
     // for deserialisation only
-    public Survey(String id, String title, String description, long createdTime, Map<Vote, Integer> votes) {
+    public Survey(String id, String title, String description, SurveyType surveyType, long createdTime, Map<Vote, Integer> votes) {
         this.id = id;
         this.title = title;
         this.description = description;
+        this.surveyType = surveyType;
         this.createdTime = createdTime;
         this.votes = votes;
     }
@@ -62,6 +65,10 @@ public class Survey {
 
     public String description() {
         return description;
+    }
+
+    public SurveyType surveyType() {
+        return surveyType;
     }
 
     public long createdTime() {
