@@ -1,3 +1,6 @@
 package voting.domain;
 
-public enum SurveyType {STANDALONE, INVITATION}
+public enum SurveyType {
+    STANDALONE,
+    INVITATION
+}

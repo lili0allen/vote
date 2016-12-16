@@ -8,12 +8,12 @@ public class SurveyService {
     @Autowired
     private SurveyRepository surveyRepository;
 
-    public String createSurveyTemplate(String title, String description, SurveyType surveyType){
+    public String createSurveyTemplate(String title, String description, String surveyType){
         if(title == null || title.trim().isEmpty()) {
             throw new IllegalArgumentException("Survey 'title' can not be null or empty");
         }
 
-        Survey survey = new Survey(title.trim(), description, surveyType);
+        Survey survey = new Survey(title.trim(), description, SurveyType.INVITATION);
         surveyRepository.saveSurvey(survey);
 
         return survey.id();

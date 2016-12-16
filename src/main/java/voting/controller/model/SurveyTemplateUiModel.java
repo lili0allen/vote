@@ -1,12 +1,10 @@
 package voting.controller.model;
 
-import voting.domain.SurveyType;
-
 public class SurveyTemplateUiModel {
     private String id;
     private String title;
     private String description;
-    private SurveyType surveyType;
+    private String surveyType;
     private long createdTime;
 
     public String getId() {
@@ -34,11 +32,11 @@ public class SurveyTemplateUiModel {
     }
 
 
-    public SurveyType getSurveyType() {
+    public String getSurveyType() {
         return surveyType;
     }
 
-    public void setSurveyType(SurveyType surveyType) {
+    public void setSurveyType(String surveyType) {
         this.surveyType = surveyType;
     }
 

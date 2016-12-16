@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import org.springframework.web.context.request.WebRequest;
+import voting.controller.assembler.SurveyTemplateUiModelAssembler;
 import voting.controller.model.SurveyTemplateUiModel;
 import voting.domain.Survey;
 import voting.domain.SurveyService;
@@ -29,7 +30,7 @@ public class VotingController {
         Survey survey = surveyService.getSurveyTemplate(id);
         List<String> voteOptions = voteOptionsCapitalised();
 
-        SurveyTemplateUiModel surveyTemplateUiModel = toSurveyTemplateUiModel(survey);
+        SurveyTemplateUiModel surveyTemplateUiModel = new SurveyTemplateUiModelAssembler().toSurveyTemplateUiModel(survey);
         int TEN_MINUTES_IN_MILLISECONDS = expireTime * 60 * 1000;
         model.addAttribute("survey", surveyTemplateUiModel);
         model.addAttribute("options", voteOptions);
@@ -64,7 +65,7 @@ public class VotingController {
         NumberFormat defaultFormat = NumberFormat.getPercentInstance();
         defaultFormat.setMinimumFractionDigits(2);
 
-        SurveyTemplateUiModel surveyTemplateUiModel = toSurveyTemplateUiModel(survey);
+        SurveyTemplateUiModel surveyTemplateUiModel = new SurveyTemplateUiModelAssembler().toSurveyTemplateUiModel(survey);
         int TEN_MINUTES_IN_MILLISECONDS = expireTime * 60 * 1000;
         model.addAttribute("survey", surveyTemplateUiModel);
         model.addAttribute("total", totalVoteCount);
@@ -92,17 +93,6 @@ public class VotingController {
             voteOptions.add(voteEnum.toString().toUpperCase());
         }
         return voteOptions;
-    }
-
-    private SurveyTemplateUiModel toSurveyTemplateUiModel(Survey survey) {
-        SurveyTemplateUiModel surveyTemplateUiModel = new SurveyTemplateUiModel();
-        surveyTemplateUiModel.setId(survey.id());
-        surveyTemplateUiModel.setTitle(survey.title());
-        surveyTemplateUiModel.setDescription(survey.description());
-        surveyTemplateUiModel.setSurveyType(survey.surveyType());
-        surveyTemplateUiModel.setCreatedTime(survey.createdTime());
-
-        return surveyTemplateUiModel;
     }
 
     @Autowired
