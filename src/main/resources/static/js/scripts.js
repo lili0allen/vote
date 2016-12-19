@@ -88,13 +88,16 @@ function standaloneVoteFormSubmit(){
           url: "voteSubmit",
           data: formData,
           success: getTotalVotes($('input[name=surveyID]').val()),
-          dataType: "json"
+          dataType: "json",
+          error: function(jqXHR, textStatus, errorThrown) {
+            console.log(textStatus, errorThrown);
+          }
         });
     });
 }
 
 function getTotalVotes(surveyID){
         $.get("/survey/votes/"+surveyID, function(data){
-            alert(data);
+            $("#votesCount").text(data);
         });
 }
