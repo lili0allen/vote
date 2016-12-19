@@ -2,6 +2,7 @@ package voting.domain;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import voting.controller.transformer.SurveyTypeTransformer;
 
 @Service
 public class SurveyService {
@@ -13,7 +14,7 @@ public class SurveyService {
             throw new IllegalArgumentException("Survey 'title' can not be null or empty");
         }
 
-        Survey survey = new Survey(title.trim(), description, SurveyType.INVITATION);
+        Survey survey = new Survey(title.trim(), description, new SurveyTypeTransformer().surveyTypeFromString(surveyType));
         surveyRepository.saveSurvey(survey);
 
         return survey.id();
@@ -23,7 +24,7 @@ public class SurveyService {
         return this.surveyRepository.getSurvey(id);
     }
 
-    public void addVote(String surveyID, Vote vote){
+    public void addVote(String surveyID, VoteOption vote){
         Survey survey = this.surveyRepository.getSurvey(surveyID);
         if(survey == null) {
             throw new IllegalArgumentException("Survey not found, surveyID: '" + surveyID + "'");

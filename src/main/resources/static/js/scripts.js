@@ -1,8 +1,8 @@
-
 $(document).ready(function(){
     copyTooltip();
     surveyCountdown();
-supportRequired();
+    supportRequired();
+    standaloneVoteFormSubmit();
 });
 
 function copyTooltip(){
@@ -34,7 +34,8 @@ function copyTooltip(){
 }
 
 function surveyCountdown(){
-    $('.countdown').countdown(parseInt($('.countdown').attr('data-create'))+parseInt($('.countdown').attr('data-expire')))
+    if($('.countdown').length){
+        $('.countdown').countdown(parseInt($('.countdown').attr('data-create'))+parseInt($('.countdown').attr('data-expire')))
               .on('update.countdown', function(event) {
                 var format = '%H:%M:%S';
                 $(this).html(event.strftime(format));
@@ -43,6 +44,7 @@ function surveyCountdown(){
                 $(this).parent().html('Survey Expired!');
                 $('[name="submit"]').prop('disabled', true);
               });
+    }
 }
 
 function validateForm(){
@@ -73,4 +75,26 @@ function supportRequired(){
             }
         });  return true;
     });
+}
+
+function standaloneVoteFormSubmit(){
+    $('#standaloneVoteForm input[type=radio]').on('focus', function() {
+        var formData = {
+                'surveyID' : $('input[name=surveyID]').val(),
+                'vote'     : $(this).val()
+            };
+        $.ajax({
+          type: "POST",
+          url: "voteSubmit",
+          data: formData,
+          success: getTotalVotes($('input[name=surveyID]').val()),
+          dataType: "json"
+        });
+    });
+}
+
+function getTotalVotes(surveyID){
+        $.get("/survey/votes/"+surveyID, function(data){
+            alert(data);
+        });
 }

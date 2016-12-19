@@ -4,19 +4,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import org.springframework.web.context.request.WebRequest;
 import voting.controller.assembler.SurveyTemplateUiModelAssembler;
 import voting.controller.model.SurveyTemplateUiModel;
+import voting.controller.transformer.VoteOptionTransformer;
 import voting.domain.Survey;
 import voting.domain.SurveyService;
-import voting.domain.Vote;
+import voting.domain.SurveyType;
+import voting.domain.VoteOption;
 
 import java.text.NumberFormat;
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -28,7 +27,7 @@ public class VotingController {
     @GetMapping("/survey/{id}")
     public String getSurveyEntryForm(@PathVariable String id, Model model){
         Survey survey = surveyService.getSurveyTemplate(id);
-        List<String> voteOptions = voteOptionsCapitalised();
+        List<String> voteOptions = new VoteOptionTransformer().VoteOptionString();
 
         SurveyTemplateUiModel surveyTemplateUiModel = new SurveyTemplateUiModelAssembler().toSurveyTemplateUiModel(survey);
         int TEN_MINUTES_IN_MILLISECONDS = expireTime * 60 * 1000;
@@ -37,9 +36,13 @@ public class VotingController {
         model.addAttribute("expire", TEN_MINUTES_IN_MILLISECONDS);
 
         boolean expired = survey.isExpired(TEN_MINUTES_IN_MILLISECONDS);
-        if (expired) {
+        SurveyType surveyType = survey.surveyType();
+
+        if (surveyType == SurveyType.STANDALONE){
+            return "survey-standalone";
+        }else if(expired){
             return "survey-close";
-        } else {
+        }else{
             return "survey";
         }
     }
@@ -49,9 +52,9 @@ public class VotingController {
         Survey survey = surveyService.getSurveyTemplate(id);
 
         int totalVoteCount = survey.totalVoteCount();
-        double poor = survey.getVote(Vote.POOR);
-        double fair = survey.getVote(Vote.FAIR);
-        double good = survey.getVote(Vote.GOOD);
+        double poor = survey.getVote(VoteOption.POOR);
+        double fair = survey.getVote(VoteOption.FAIR);
+        double good = survey.getVote(VoteOption.GOOD);
         double poorPercentage = 0;
         double fairPercentage = 0;
         double goodPercentage = 0;
@@ -78,21 +81,21 @@ public class VotingController {
         return "survey-result";
     }
 
+    @RequestMapping("/survey/votes/{id}")
+    @ResponseBody
+    public String votesCount(@PathVariable String id, Model model) {
+        Survey survey = surveyService.getSurveyTemplate(id);
+        String totalVoteCount = Integer.toString(survey.totalVoteCount());
+        return totalVoteCount;
+    }
+
     @PostMapping("/survey/voteSubmit")
     public String voteSubmit(WebRequest request, Model model){
         String surveyID = request.getParameter("surveyID");
-        Vote vote = Vote.valueOf(request.getParameter("vote"));
+        VoteOption vote = new VoteOptionTransformer().voteOptionFromString(request.getParameter("vote"));
         model.addAttribute("surveyUiModelID", surveyID);
         surveyService.addVote(surveyID, vote);
         return "vote-finish";
-    }
-
-    private List<String> voteOptionsCapitalised() {
-        List<String> voteOptions = new ArrayList<>();
-        for (Vote voteEnum : Vote.values()) {
-            voteOptions.add(voteEnum.toString().toUpperCase());
-        }
-        return voteOptions;
     }
 
     @Autowired

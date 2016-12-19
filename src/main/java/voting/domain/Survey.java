@@ -11,7 +11,7 @@ public class Survey {
     private String description;
     private SurveyType surveyType;
     private long createdTime;
-    private Map<Vote, Integer> votes;
+    private Map<VoteOption, Integer> votes;
 
     public Survey(String title, String description, SurveyType surveyType) {
         this.id = UUID.randomUUID().toString();
@@ -21,14 +21,14 @@ public class Survey {
         this.createdTime = new Date().getTime();
 
         this.votes = new HashMap<>();
-        for(Vote vote: Vote.values()) {
+        for(VoteOption vote: VoteOption.values()) {
             this.votes.put(vote, 0);
         }
     }
 
     // constructor
     // for deserialisation only
-    public Survey(String id, String title, String description, SurveyType surveyType, long createdTime, Map<Vote, Integer> votes) {
+    public Survey(String id, String title, String description, SurveyType surveyType, long createdTime, Map<VoteOption, Integer> votes) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -39,19 +39,19 @@ public class Survey {
 
     public int totalVoteCount() {
         int totalCount = 0;
-        for(Vote vote: Vote.values()) {
+        for(VoteOption vote: VoteOption.values()) {
             totalCount += this.votes.get(vote);
         }
         return totalCount;
     }
 
-    public void addVote(Vote vote) {
+    public void addVote(VoteOption vote) {
         // check vote note null
         int previousCount = this.votes.get(vote);
         this.votes.put(vote, previousCount + 1);
     }
 
-    public int getVote(Vote vote) {
+    public int getVote(VoteOption vote) {
         return this.votes.get(vote);
     }
 

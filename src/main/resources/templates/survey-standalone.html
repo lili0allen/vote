@@ -1,0 +1,52 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header"> </head>
+<body>
+
+<div class="container container-table">
+    <div class="row vertical-center-row">
+        <div class="col-md-3">
+        </div>
+        <form id="standaloneVoteForm">
+            <div class="col-md-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <span th:text="${survey.title}"></span>
+                                </div>
+                                <div class="col-md-4">
+                                    Count <span class="text-right"></span>
+                                </div>
+                            </div>
+                        </h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <p th:text="${survey.description}"></p>
+                            </div>
+                            <div class="btn-group col-md-12" data-toggle="buttons">
+                                <label class="col-md-4 btn-vote btn btn-lg" th:each="ty : ${options}" th:id="${ty}">
+                                        <input type="radio" required="required" name="vote" th:id="${ty}" th:value="${ty}" autocomplete="off" />
+                                        <span th:for="${ty}" th:text="${ty}"></span>
+                                </label>
+                            </div>
+                            <input type="hidden" name="surveyID" th:value="${survey.id}" />
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+
+
+
+<footer th:replace="fragments/footer :: footer"> </footer>
+</body>
+</html>

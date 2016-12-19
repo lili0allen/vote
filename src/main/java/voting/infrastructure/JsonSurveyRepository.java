@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import voting.controller.transformer.SurveyTypeTransformer;
 import voting.domain.Survey;
 import voting.domain.SurveyRepository;
-import voting.domain.Vote;
+import voting.domain.VoteOption;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -91,8 +91,8 @@ public class JsonSurveyRepository implements SurveyRepository {
     private Survey toSurveyDomain(JSONObject jsonObject) {
         JSONObject votesJson = (JSONObject)jsonObject.get("votes");
 
-        Map<Vote, Integer> votesMap = new HashMap<>();
-        for(Vote vote: Vote.values()) {
+        Map<VoteOption, Integer> votesMap = new HashMap<>();
+        for(VoteOption vote: VoteOption.values()) {
             votesMap.put(vote, ((Number) votesJson.get(vote.toString())).intValue());
         }
 
@@ -109,7 +109,7 @@ public class JsonSurveyRepository implements SurveyRepository {
         JSONObject survey = new JSONObject();
         JSONObject votes = new JSONObject();
 
-        for (Vote vote : Vote.values()) {
+        for (VoteOption vote : VoteOption.values()) {
             votes.put(vote, surveyDomain.getVote(vote));
         }
 

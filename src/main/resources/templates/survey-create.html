@@ -29,7 +29,7 @@
                                 <div class="form-group">
                                     <label>Type</label>
                                     <select class="form-control" th:field="*{surveyType}">
-                                        <option th:each="type : ${T(voting.domain.SurveyType).values()}" th:value="${type}" th:text="${type}"></option>
+                                        <option th:each="type : ${types}" th:value="${type}" th:text="${type}"></option>
                                     </select>
                                 </div>
                             </div>

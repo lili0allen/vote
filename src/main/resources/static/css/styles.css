@@ -11,30 +11,30 @@ html, body, .container-table {
 .btn-vote{
     line-height:6;
 }
-#FAIR{
+#Fair{
     color: #fff;
     background-color: #5bc0de;
     border-color: #46b8da;
 }
-#POOR{
+#Poor{
     color: #fff;
     background-color: #d9534f;
     border-color: #d43f3a;
 }
-#GOOD{
+#Good{
     color: #fff;
     background-color: #5cb85c;
     border-color: #4cae4c;
 }
-#FAIR.active{
+#Fair.active{
     background-color: #31b0d5;
     border-color: #269abc;
 }
-#POOR.active{
+#Poor.active{
     background-color: #c9302c;
     border-color: #ac2925;
 }
-#GOOD.active{
+#Good.active{
     background-color: #449d44;
     border-color: #398439;
 }

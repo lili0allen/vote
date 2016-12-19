@@ -11,12 +11,15 @@ import voting.controller.model.SurveyTemplateUiModel;
 import voting.domain.Survey;
 import voting.domain.SurveyService;
 import voting.controller.assembler.SurveyTemplateUiModelAssembler;
+import voting.controller.transformer.SurveyTypeTransformer;
+
 
 @Controller
 public class SurveyTemplateController {
     @GetMapping("/")
     public String surveyForm(Model model){
         model.addAttribute("survey", new SurveyForm());
+        model.addAttribute("types", new SurveyTypeTransformer().surveyTypeString());
         return "survey-create";
     }
 

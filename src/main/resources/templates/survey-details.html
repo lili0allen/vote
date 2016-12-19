@@ -23,6 +23,9 @@
                             <p>
                                 <strong>Description : </strong><span th:text="${surveyUiModel.description}"></span>
                             </p>
+                            <p>
+                                <strong>Type : </strong><span th:text="${surveyUiModel.surveyType}"></span>
+                            </p>
                             <div class="input-group">
                                 <input id="survey-link" class="form-control"  th:value="@{${#httpServletRequest.getHeader('Referer')}+${'survey/'+ surveyUiModel.id}}" />
                                 <span class="input-group-btn">
