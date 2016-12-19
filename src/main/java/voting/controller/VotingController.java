@@ -34,6 +34,7 @@ public class VotingController {
         model.addAttribute("survey", surveyTemplateUiModel);
         model.addAttribute("options", voteOptions);
         model.addAttribute("expire", TEN_MINUTES_IN_MILLISECONDS);
+        model.addAttribute("votesCount", survey.totalVoteCount());
 
         boolean expired = survey.isExpired(TEN_MINUTES_IN_MILLISECONDS);
         SurveyType surveyType = survey.surveyType();
@@ -81,14 +82,6 @@ public class VotingController {
         return "survey-result";
     }
 
-    @RequestMapping("/survey/votes/{id}")
-    @ResponseBody
-    public String votesCount(@PathVariable String id, Model model) {
-        Survey survey = surveyService.getSurveyTemplate(id);
-        String totalVoteCount = Integer.toString(survey.totalVoteCount());
-        return totalVoteCount;
-    }
-
     @PostMapping("/survey/voteSubmit")
     public String voteSubmit(WebRequest request, Model model){
         String surveyID = request.getParameter("surveyID");
@@ -96,6 +89,18 @@ public class VotingController {
         model.addAttribute("surveyUiModelID", surveyID);
         surveyService.addVote(surveyID, vote);
         return "vote-finish";
+    }
+
+    @PostMapping("/survey/standaloneVoteSubmit")
+    @ResponseBody
+    public String standaloneVoteSubmit(WebRequest request, Model model){
+        String surveyID = request.getParameter("surveyID");
+        VoteOption vote = new VoteOptionTransformer().voteOptionFromString(request.getParameter("vote"));
+        model.addAttribute("surveyUiModelID", surveyID);
+        surveyService.addVote(surveyID, vote);
+        Survey survey = surveyService.getSurveyTemplate(surveyID);
+        String totalVoteCount = Integer.toString(survey.totalVoteCount());
+        return totalVoteCount;
     }
 
     @Autowired

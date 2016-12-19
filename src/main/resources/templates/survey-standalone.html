@@ -5,19 +5,19 @@
 
 <div class="container container-table">
     <div class="row vertical-center-row">
-        <div class="col-md-3">
+        <div class="col-md-2">
         </div>
         <form id="standaloneVoteForm">
-            <div class="col-md-6">
+            <div class="col-md-8">
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <h3 class="panel-title">
                             <div class="row">
-                                <div class="col-md-8">
+                                <div class="col-md-8 col-sm-6 col-xs-6">
                                     <span th:text="${survey.title}"></span>
                                 </div>
-                                <div class="col-md-4">
-                                    Count <span class="text-right" id="votesCount"></span>
+                                <div class="col-md-4 col-sm-6 col-xs-6">
+                                    <a th:href="@{result/}+${survey.id}">Count : <span class="text-right" id="votesCount" th:text="${votesCount}"></span></a>
                                 </div>
                             </div>
                         </h3>
@@ -27,8 +27,10 @@
                             <div class="col-md-12">
                                 <p th:text="${survey.description}"></p>
                             </div>
+                        </div>
+                        <div class="row">
                             <div class="btn-group col-md-12" data-toggle="buttons">
-                                <label class="col-md-4 btn-vote btn btn-lg" th:each="ty : ${options}" th:id="${ty}">
+                                <label class="col-md-4 col-sm-4 col-xs-4 btn-vote btn btn-lg" th:each="ty : ${options}" th:id="${ty}">
                                         <input type="radio" required="required" name="vote" th:id="${ty}" th:value="${ty}" autocomplete="off" />
                                         <span th:for="${ty}" th:text="${ty}"></span>
                                 </label>

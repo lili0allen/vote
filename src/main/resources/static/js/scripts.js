@@ -78,26 +78,23 @@ function supportRequired(){
 }
 
 function standaloneVoteFormSubmit(){
-    $('#standaloneVoteForm input[type=radio]').on('focus', function() {
+    $('#standaloneVoteForm .btn-vote').on('click', function() {
         var formData = {
                 'surveyID' : $('input[name=surveyID]').val(),
-                'vote'     : $(this).val()
+                'vote'     : $(this).children("input").val()
             };
         $.ajax({
           type: "POST",
-          url: "voteSubmit",
+          url: "standaloneVoteSubmit",
           data: formData,
-          success: getTotalVotes($('input[name=surveyID]').val()),
+          cache: false,
+          success: function(data){
+                    $("#votesCount").text(data);
+                    },
           dataType: "json",
           error: function(jqXHR, textStatus, errorThrown) {
             console.log(textStatus, errorThrown);
           }
         });
     });
-}
-
-function getTotalVotes(surveyID){
-        $.get("/survey/votes/"+surveyID, function(data){
-            $("#votesCount").text(data);
-        });
 }
