@@ -1,46 +1,14 @@
 {
-  "8275ee86-77bd-4579-918f-1262abd0bdf2": {
-    "id": "8275ee86-77bd-4579-918f-1262abd0bdf2",
-    "title": "4544",
-    "createdTime": 1480048874416,
-    "description": "5444",
+  "67425420-dc3e-435c-bf0f-a785847f5359": {
+    "surveyType": "Standalone",
+    "description": "test description",
+    "createdTime": 1482186332516,
     "votes": {
-      "FAIR": 0,
-      "GOOD": 0,
-      "POOR": 0
-    }
-  },
-  "5d5e33ce-308f-42cd-ae7e-f9841c290009": {
-    "id": "5d5e33ce-308f-42cd-ae7e-f9841c290009",
-    "title": "test 1",
-    "createdTime": 1479784573770,
-    "description": "111111111111",
-    "votes": {
-      "FAIR": 0,
-      "GOOD": 2,
-      "POOR": 2
-    }
-  },
-  "03c0f0df-9f11-4c89-a1b4-3bbdac79b08a": {
-    "id": "03c0f0df-9f11-4c89-a1b4-3bbdac79b08a",
-    "title": "Develop",
-    "createdTime": 1479869109524,
-    "description": "Grooming meeting",
-    "votes": {
-      "FAIR": 0,
-      "GOOD": 0,
-      "POOR": 0
-    }
-  },
-  "6f7ecc23-a0ae-452a-a0c0-23ee49e9799b": {
-    "id": "6f7ecc23-a0ae-452a-a0c0-23ee49e9799b",
-    "title": "addfads",
-    "createdTime": 1480046884397,
-    "description": "asfdfa",
-    "votes": {
-      "FAIR": 0,
-      "GOOD": 0,
-      "POOR": 0
-    }
+      "FAIR": 28,
+      "POOR": 56,
+      "GOOD": 27
+    },
+    "id": "67425420-dc3e-435c-bf0f-a785847f5359",
+    "title": "test title"
   }
 }
