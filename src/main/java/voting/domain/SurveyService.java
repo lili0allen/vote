@@ -14,6 +14,14 @@ public class SurveyService {
             throw new IllegalArgumentException("Survey 'title' can not be null or empty");
         }
 
+        if(description != null && description.length() > 200) {
+            throw new IllegalArgumentException("description must not contain more than 200 characters");
+        }
+
+        if(surveyType == null || surveyType.trim().isEmpty()) {
+            throw new IllegalArgumentException("Survey 'type' can not be null or empty");
+        }
+
         Survey survey = new Survey(title.trim(), description, new SurveyTypeTransformer().surveyTypeFromString(surveyType));
         surveyRepository.saveSurvey(survey);
 

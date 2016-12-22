@@ -14,6 +14,18 @@ public class Survey {
     private Map<VoteOption, Integer> votes;
 
     public Survey(String title, String description, SurveyType surveyType) {
+        if(title == null || title.isEmpty()) {
+            throw new IllegalArgumentException("title is required");
+        }
+
+        if(description != null && description.length() > 200) {
+            throw new IllegalArgumentException("description must not contain more than 200 characters");
+        }
+
+        if(surveyType == null) {
+            throw new IllegalArgumentException("surveyType must not be null");
+        }
+
         this.id = UUID.randomUUID().toString();
         this.title = title;
         this.description = description;
@@ -75,10 +87,10 @@ public class Survey {
         return createdTime;
     }
 
-    public boolean isExpired(int lifeSpan) {
+    public boolean isExpired(int lifeSpanInMilliSeconds) {
         long currentTime = new Date().getTime();
         long countDown = currentTime - this.createdTime;
 
-        return ((int) countDown) >= lifeSpan;
+        return ((int) countDown) >= lifeSpanInMilliSeconds;
     }
 }
