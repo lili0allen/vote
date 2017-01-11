@@ -33,6 +33,12 @@ public class SurveyService {
     }
 
     public void addVote(String surveyID, VoteOption vote){
+        if(surveyID == null || surveyID.trim().isEmpty()){
+            throw new IllegalArgumentException("Survey 'id' can not be null or empty");
+        }
+        if(vote == null || vote.toString().isEmpty()){
+            throw new IllegalArgumentException("Survey 'voteOption' can not be null or empty");
+        }
         Survey survey = this.surveyRepository.getSurvey(surveyID);
         if(survey == null) {
             throw new IllegalArgumentException("Survey not found, surveyID: '" + surveyID + "'");
@@ -40,5 +46,10 @@ public class SurveyService {
 
         survey.addVote(vote);
         surveyRepository.saveSurvey(survey);
+    }
+
+    // for test only
+    protected void setSurveyRepository(SurveyRepository surveyRepository) {
+        this.surveyRepository = surveyRepository;
     }
 }

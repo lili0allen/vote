@@ -2,6 +2,7 @@ package voting.infrastructure;
 
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 import voting.controller.transformer.SurveyTypeTransformer;
@@ -22,11 +23,10 @@ public class JsonSurveyRepository implements SurveyRepository {
     private File file;
     private JSONParser parser = new JSONParser();
 
-    @Value("${spring.jsonUrl}")
     private String jsonUrl;
 
-    public JsonSurveyRepository() {
-
+    public JsonSurveyRepository(@Value("${spring.jsonUrl}") String jsonUrl) {
+        this.jsonUrl = jsonUrl;
     }
 
     private void checkFileExist(){
